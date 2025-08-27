@@ -39,13 +39,19 @@ footer:
 
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
+social:
+  - title: Phone
+    icon: "fa-solid fa-phone"
+    url: "tel:+13192900792"
 
-  - title: phone
-    url: tel:+13192900792
-  - title: envelope
-    url: mailto:floydjunker@gmail.com
-  - title: facebook
-    url: https://facebook.com/floyd.junker
+  - title: Email
+    icon: "fa-solid fa-envelope"
+    url: "mailto:floydjunker@gmail.com"
+
+  - title: Facebook
+    icon: "fa-brands fa-facebook-f"
+    url: "https://facebook.com/floyd.junker"
+
 
 
 # Postal address (add as many lines as necessary)
