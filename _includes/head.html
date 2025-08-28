@@ -1,52 +1,132 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ site.title }}</title>
-  <meta name="viewport" content="width=device-width">
-  <meta name="description" content="{{ site.description }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {%- comment -%}
+  --- TITLE & BASICS ---
+  Prefer page-specific title/description; fall back to site.*.
+  Append location for local SEO.
+  {%- endcomment -%}
+  <title>
+    {%- assign base_title = page.title | default: site.title -%}
+    {{ base_title }}{% unless base_title contains 'Waterloo' or base_title contains 'IA' %} | Waterloo, IA{% endunless %}
+  </title>
+
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  {%- if site.keywords -%}
   <meta name="keywords" content="{{ site.keywords }}">
-  {% if site.meta_author %}
-  <meta name="author" content="{{ site.meta_author }}">{% endif %}
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.url }}">
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="feed.xml">
+  {%- endif -%}
+  {%- if site.meta_author -%}
+  <meta name="author" content="{{ site.meta_author }}">
+  {%- endif -%}
+  <meta name="robots" content="index,follow">
+  {%- if paginator and paginator.page > 1 -%}
+  <!-- Noindex paginated pages -->
+  <meta name="robots" content="noindex,follow">
+  {%- endif -%}
 
-  <!-- Open Graph -->
+  {%- comment -%}
+  Canonical + hreflang
+  {%- endcomment -%}
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+  <link rel="alternate" hreflang="en-US" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+
+  {%- comment -%}
+  RSS
+  {%- endcomment -%}
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }} RSS" href="{{ '/feed.xml' | absolute_url }}">
+
+  {%- comment -%}
+  --- OPEN GRAPH / TWITTER ---
+  {%- endcomment -%}
   <meta property="og:type" content="website">
-  <meta property="og:title" content="{{ site.title }}">
-  <meta property="og:description" content="{{ site.description }}">
-  <meta property="og:url" content="{{ page.url | replace:'index.html','' | prepend: site.url }}">
-  {% if site.og_image %}
-  <meta property="og:image" content="{{ site.og_image | prepend: site.url }}">
-  {% endif %}
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="{{ page.og_title | default: base_title }}">
+  <meta property="og:description" content="{{ page.description | default: site.description }}">
+  <meta property="og:url" content="{{ page.url | replace:'index.html','' | absolute_url }}">
+  {%- if site.og_image -%}
+  <meta property="og:image" content="{{ site.og_image | absolute_url }}">
+  <meta property="og:image:alt" content="Good Neighbor Fence in Waterloo, Iowa">
+  {%- endif -%}
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ site.title }}">
-  <meta name="twitter:description" content="{{ site.description }}">
-  {% if site.og_image %}
-  <meta name="twitter:image" content="{{ site.og_image | prepend: site.url }}">
-  {% endif %}
-  {% if site.twitter_site %}
+  <meta name="twitter:title" content="{{ page.twitter_title | default: base_title }}">
+  <meta name="twitter:description" content="{{ page.description | default: site.description }}">
+  {%- if site.og_image -%}
+  <meta name="twitter:image" content="{{ site.og_image | absolute_url }}">
+  {%- endif -%}
+  {%- if site.twitter_site -%}
   <meta name="twitter:site" content="@{{ site.twitter_site }}">
-  {% endif %}
+  {%- endif -%}
 
-  <!-- Custom CSS & Bootstrap Core CSS -->
-  <link rel="stylesheet" href="{{ " style.css" }}">
+  {%- comment -%}
+  --- LOCAL BUSINESS JSON-LD (boosts Waterloo, IA relevance) ---
+  Uses config.yaml values. Update phone/address there.
+  {%- endcomment -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Good Neighbor Fence",
+    "url": "{{ site.url }}",
+    "image": "{{ site.og_image | absolute_url }}",
+    "telephone": "+1-319-290-0792",
+    "email": "mailto:floydjunker@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1209 Mulberry St.",
+      "addressLocality": "Waterloo",
+      "addressRegion": "IA",
+      "postalCode": "50703",
+      "addressCountry": "US"
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Waterloo"
+    },
+    "description": {{ page.description | default: site.description | jsonify }},
+    "sameAs": [
+      "https://facebook.com/floyd.junker"
+    ],
+    "knowsAbout": ["Fences", "Fence installation", "Vinyl fences", "Wood fences", "Chain link fences", "Fence contractor in Waterloo, IA"]
+  }
+  </script>
 
-  <!-- Google verification -->
-  {% if site.google_verify %}
-  <meta name="google-site-verification" content="{{ site.google_verify }}">{% endif %}
+  {%- comment -%}
+  --- VERIFICATIONS ---
+  {%- endcomment -%}
+  {%- if site.google_verify -%}
+  <meta name="google-site-verification" content="{{ site.google_verify }}">
+  {%- endif -%}
+  {%- if site.bing_verify -%}
+  <meta name="msvalidate.01" content="{{ site.bing_verify }}">
+  {%- endif -%}
 
-  <!-- Bing Verification -->
-  {% if site.bing_verify %}
-  <meta name="msvalidate.01" content="{{ site.bing_verify }}">{% endif %}
+  {%- comment -%}
+  --- PERFORMANCE HINTS ---
+  {%- endcomment -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Custom Fonts -->
-  <link rel="stylesheet" href="{{ " css/font-awesome/css/all.min.css" }}">
-  <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-  <link href="//fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+  {%- comment -%}
+  --- STYLES / FONTS (fixed paths) ---
+  {%- endcomment -%}
+  <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/css/font-awesome/css/all.min.css' | relative_url }}">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&display=swap" rel="stylesheet">
 
-  <!-- HTML5 Shim for IE8 -->
+  {%- comment -%}
+  --- FAVICONS (optional; drop files in /assets/favicons) ---
+  {%- endcomment -%}
+  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/favicons/apple-touch-icon.png' | relative_url }}">
+  <link rel="manifest" href="{{ '/site.webmanifest' | relative_url }}">
+  <meta name="theme-color" content="#18bc9c">
+
+  <!-- HTML5 Shim for IE8 (legacy) -->
   <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>

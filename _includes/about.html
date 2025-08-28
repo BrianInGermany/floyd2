@@ -1,20 +1,69 @@
 <!-- About Section -->
-<section class="success" id="about">
+<section id="about" class="success" aria-labelledby="about-heading">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h2>About</h2>
+        <h2 id="about-heading">About</h2>
         <hr class="star-light">
       </div>
     </div>
-    <div class="row">
+
+    <div class="row" itemscope itemtype="https://schema.org/LocalBusiness">
+      <meta itemprop="name" content="Good Neighbor Fence">
+      <meta itemprop="url" content="{{ site.url }}">
+      <meta itemprop="image" content="{{ site.og_image | absolute_url }}">
+
       <div class="col-lg-4 col-lg-offset-2">
-        <p>Good Neighbor Fence is a trusted fencing company based in Waterloo, Iowa, dedicated to building strong, attractive, and lasting fences. Whether you need wood, vinyl, or chain link, I deliver quality craftsmanship, fair pricing, and neighborly service that stands the test of time.</p>
+        <p>
+          <strong>Good Neighbor Fence</strong> is your trusted
+          <em>fence contractor in Waterloo, Iowa</em>, building durable and attractive
+          <span itemprop="knowsAbout">wood</span>, <span itemprop="knowsAbout">vinyl</span>, and
+          <span itemprop="knowsAbout">chain link</span> fences for over 20 years.  
+          I focus on craftsmanship, fair pricing, and neighborly service across the Cedar Valley and beyond.
+        </p>
+      
       </div>
+
       <div class="col-lg-4">
-        <p>At Good Neighbor Fence, I believe every property deserves both protection and curb appeal. From residential yards to commercial lots, I bring hands-on expertise and honest service to every project. Our fences are built to last, designed to fit your space, and backed by a commitment to treating customers like true neighbors.</p>
+        <p>
+          Every property deserves protection and curb appeal. From residential yards to commercial lots,
+          I handle <strong>fence installations, replacements, and repairs</strong>— designed to fit your space
+          and built to last.  
+        </p>
+
+
+
       </div>
-     
     </div>
   </div>
+
+  <!-- Local FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "Do you install fences in Waterloo and Cedar Falls, Iowa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. I install and repair wood, vinyl, and chain link fences in Waterloo, Cedar Falls, Evansdale, Hudson, and nearby Cedar Valley communities."
+      }
+    },{
+      "@type": "Question",
+      "name": "What fence types do you build in Waterloo, IA?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Wood privacy, vinyl, and chain link fences for residential and commercial properties. I also handle replacements and repairs."
+      }
+    },{
+      "@type": "Question",
+      "name": "How do I get a fence estimate in Waterloo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Call or text (319) 290-0792 or email floydjunker@gmail.com. I’ll review your property needs and provide a free quote."
+      }
+    }]
+  }
+  </script>
 </section>

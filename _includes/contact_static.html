@@ -1,31 +1,68 @@
 <!-- Contact Section -->
-<section id="contact">
+<section id="contact" class="contact" aria-labelledby="contact-heading" itemscope itemtype="https://schema.org/ContactPage">
+  <meta itemprop="name" content="Contact Good Neighbor Fence">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h2>Contact Me</h2>
+        <h2 id="contact-heading">Contact</h2>
         <hr class="star-primary">
       </div>
     </div>
+
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2">
-       <div class="contact-links" style="text-align:center; font-size:1.2rem;">
-  <!-- Phone -->
-  <p>
-    <a href="tel:+13192900792">
-      <i class="fa-solid fa-phone"></i> (319) 290-0792
-    </a>
-  </p>
+        <div class="contact-links" style="text-align:center; font-size:1.2rem;">
 
-  <!-- Email -->
-  <p>
-    <a href="mailto:floydjunker@gmail.com">
-      <i class="fa-solid fa-envelope"></i> floydjunker@gmail.com
-    </a>
-  </p>
-</div>
+          <!-- Phone -->
+          <p>
+            <a href="tel:+13192900792" itemprop="telephone">
+              <i class="fa-solid fa-phone"></i> (319) 290-0792
+            </a>
+          </p>
 
+          <!-- Email -->
+          <p>
+            <a href="mailto:floydjunker@gmail.com" itemprop="email">
+              <i class="fa-solid fa-envelope"></i> floydjunker@gmail.com
+            </a>
+          </p>
+
+          <!-- CTA Button -->
+          <p style="margin-top:1.5rem;">
+            <a href="mailto:floydjunker@gmail.com?subject=Fence%20Quote%20Request" 
+               class="btn btn-primary btn-lg" 
+               aria-label="Request a free quote from Good Neighbor Fence">
+              Get Your Free Quote
+            </a>
+          </p>
+
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- Optional: JSON-LD for Contact -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Good Neighbor Fence",
+    "url": "{{ site.url }}/#contact",
+    "about": {
+      "@type": "LocalBusiness",
+      "name": "Good Neighbor Fence",
+      "telephone": "+1-319-290-0792",
+      "email": "mailto:floydjunker@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1209 Mulberry St.",
+        "addressLocality": "Waterloo",
+        "addressRegion": "IA",
+        "postalCode": "50703",
+        "addressCountry": "US"
+      },
+      "areaServed": ["Waterloo IA","Cedar Falls IA","Evansdale IA","Hudson IA"]
+    }
+  }
+  </script>
 </section>

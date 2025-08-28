@@ -1,48 +1,110 @@
 <!-- Footer -->
-<footer class="text-center">
+<footer class="text-center" role="contentinfo" itemscope itemtype="https://schema.org/LocalBusiness">
+  <!-- LocalBusiness basics for crawlers -->
+  <meta itemprop="name" content="Good Neighbor Fence">
+  <meta itemprop="url" content="{{ site.url }}">
+  {% if site.og_image %}<meta itemprop="image" content="{{ site.og_image | absolute_url }}">{% endif %}
+  <meta itemprop="telephone" content="+1-319-290-0792">
+  <meta itemprop="email" content="{{ site.email }}">
+
   <div class="footer-above">
     <div class="container">
       <div class="row">
+
+        <!-- Address / Location -->
         <div class="footer-col col-md-4">
-          <h3>{{ site.footer.location }}</h3>
-          <p>
-            {% for adress in site.address %}
-            {{ adress.line }} <br>
+          <h3>{{ site.footer.location | default: 'Waterloo, IA' }}</h3>
+          <address class="lead" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress" style="margin-bottom:.75rem;">
+            {% for address in site.address %}
+              {{ address.line }}<br>
             {% endfor %}
+            <meta itemprop="streetAddress" content="1209 Mulberry St.">
+            <meta itemprop="addressLocality" content="Waterloo">
+            <meta itemprop="addressRegion" content="IA">
+            <meta itemprop="postalCode" content="50703">
+            <meta itemprop="addressCountry" content="US">
+          </address>
+          <p class="small" style="margin:0;">
+            <a href="https://www.google.com/maps/search/?api=1&query=1209+Mulberry+St%2C+Waterloo%2C+IA+50703"
+               target="_blank" rel="noopener" aria-label="Open Google Maps for 1209 Mulberry St, Waterloo IA">
+              Get directions
+            </a>
           </p>
         </div>
+
+        <!-- Social links -->
         <div class="footer-col col-md-4">
-          <h3>{{ site.footer.social }}</h3>
+          <h3>{{ site.footer.social | default: 'Connect' }}</h3>
           <ul class="list-inline">
             {% for network in site.social %}
-            <li>
-              <a href="{{ network.url }}" class="btn-social btn-outline"><i class="fa-fw {{ network.icon }}"></i>
-</a>
-            </li>
+              <li>
+                <a href="{{ network.url }}" class="btn-social btn-outline"
+                   target="_blank" rel="me noopener"
+                   aria-label="{{ network.title }}">
+                  <i class="fa-fw {{ network.icon }}" aria-hidden="true"></i>
+                </a>
+              </li>
             {% endfor %}
           </ul>
         </div>
+
+        <!-- Credits / Service Area -->
         <div class="footer-col col-md-4">
-          <h3>{{ site.footer.credits }}</h3>
-          <p>{{ site.credits }}</p>
+          <h3>{{ site.footer.credits | default: 'Service Area' }}</h3>
+          {% if site.credits %}
+            <p>{{ site.credits }}</p>
+          {% else %}
+            <p class="small" itemprop="areaServed">Waterloo, Cedar Falls, Evansdale, Hudson, the Cedar Valley and beyond</p>
+            <p class="small">Fence installation & repair: wood privacy, vinyl, and chain link</p>
+          {% endif %}
         </div>
+
       </div>
     </div>
   </div>
+
   <div class="footer-below">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          Copyright &copy; {{ site.footer.copyright }} 20{{ site.time | date: '%y' }}
+          Copyright &copy; {{ site.footer.copyright }}
+          {{ site.time | date: '%Y' }}
         </div>
       </div>
     </div>
   </div>
+
+  <!-- JSON-LD: canonical NAP for Local SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Good Neighbor Fence",
+    "url": "{{ site.url }}",
+    {% if site.og_image %}"image": "{{ site.og_image | absolute_url }}",{% endif %}
+    "telephone": "+1-319-290-0792",
+    "email": "mailto:{{ site.email }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1209 Mulberry St.",
+      "addressLocality": "Waterloo",
+      "addressRegion": "IA",
+      "postalCode": "50703",
+      "addressCountry": "US"
+    },
+    "areaServed": ["Waterloo IA","Cedar Falls IA","Evansdale IA","Hudson IA"],
+    "openingHours": ["Mo-Fr 08:00-18:00"],
+    "priceRange": "$$",
+    "sameAs": [
+      "https://facebook.com/floyd.junker"
+    ]
+  }
+  </script>
 </footer>
 
-<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+<!-- Scroll to Top Button -->
 <div class="scroll-top page-scroll visible-xs visible-sm">
-  <a class="btn btn-primary" href="#page-top">
-    <i class="fa fa-chevron-up"></i>
+  <a class="btn btn-primary" href="#page-top" aria-label="Back to top">
+    <i class="fa fa-chevron-up" aria-hidden="true"></i>
   </a>
 </div>
